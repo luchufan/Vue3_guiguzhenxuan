@@ -5,10 +5,10 @@ export default [
     name: 'any'
   },
   {
-    path: '/home',
-    name: 'home',
+    path: '/',
+    name: 'layout',
     //路由懒加载
-    component: () => import('@/views/home/index.vue'),
+    component: () => import('@/layout/index.vue'),
   },
   {
     path: '/login',
