@@ -5,9 +5,9 @@
       <img src="../../public/favicon.ico">
       <div>商品会后台</div>
     </div>
-    <el-scrollbar height="400px">
-      <p v-for="item in 20" :key="item" class="scrollbar-demo-item">{{ item }}</p>
-    </el-scrollbar>
+    <!-- element滚动组件 -->
+
+    <Menu :menuList="userInfoStore.menuRouters"></Menu>
   </div>
   <!-- 顶部面包屑 -->
   <div class="layout-topbar">
@@ -22,6 +22,11 @@
 
 <script setup lang="ts">
 
+// 引入菜单组件
+import Menu from './menu/index.vue'
+
+import { userInfo } from '@/stores/userInfo.ts';
+let userInfoStore = userInfo()
 </script>
 
 <style scoped lang="scss">
@@ -44,6 +49,11 @@
       height: 50px;
       margin-right: 10px;
     }
+  }
+
+  .scrollabar {
+    width: 100%;
+    height: calc(100vh - 90px);
   }
 }
 

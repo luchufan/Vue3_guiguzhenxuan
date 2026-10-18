@@ -4,6 +4,8 @@ import type { LoginForm, LoginResponseData } from '@/api/user/type'
 import type { UserState } from './types/tpyes'
 import { defineStore } from 'pinia'
 
+//引入路由（常量路由）
+import constantRouter from '@/router/routers'
 export const userInfo = defineStore('userInfo', {
 
   actions: {
@@ -31,6 +33,7 @@ export const userInfo = defineStore('userInfo', {
   state(): UserState {
     return {
       token: localStorage.getItem('TOKEN'),
+      menuRouters: constantRouter,//仓库存储生成菜单需要数组（路由）
       userInfo: {}
     }
   },
