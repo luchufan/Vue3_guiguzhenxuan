@@ -13,7 +13,8 @@ import 'element-plus/dist/index.css'
 //引入组件SvgIcons
 import SvgIcons from './components/SvgIcons.vue'
 //引入全局样式
-
+//引入所有element图标
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 const app = createApp(App)
 //安装仓库
 app.use(pinia)
@@ -21,5 +22,8 @@ app.use(router)
 
 //注册全局组件SvgIcons
 app.component('SvgIcons', SvgIcons)
-
+//注册element-plus图标全局组件
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
 app.mount('#app')
