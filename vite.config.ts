@@ -46,4 +46,17 @@ export default defineConfig({
       },
     },
   },
+  // 代理跨域
+  server: {
+    proxy: {
+      '/api': {
+        //设置服务器地址
+        target: 'http://localhost:10086',
+        //是否跨域
+        changeOrigin: true,
+        //路径重写
+        rewrite: (path) => path.replace(/^\/api/, '')
+      },
+    }
+  }
 })

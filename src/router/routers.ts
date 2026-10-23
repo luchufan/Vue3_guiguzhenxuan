@@ -27,9 +27,7 @@ export default [
     component: () => import('@/layout/index.vue'),
     redirect: '/home',
     meta: {
-      title: 'layout',
       hidden: false,//是否在主页菜单栏中展示，true为隐藏，false为展示
-      icon: 'HomeFilled',
     },
     children: [
       {
@@ -72,6 +70,7 @@ export default [
       hidden: false,//是否在主页菜单栏中展示，true为隐藏，false为展示
       icon: 'Lock'
     },
+    redirect: '/acl/permission',
     children: [
       {
         path: '/acl/permission',
@@ -113,6 +112,7 @@ export default [
       title: '商品管理',
       icon: 'Goods',
     },
+    redirect: '/product/trademark',
     children: [
       {
         path: '/product/trademark',

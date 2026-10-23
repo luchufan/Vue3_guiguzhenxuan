@@ -1,7 +1,6 @@
 //进行axios二次封装：使用请求与响应拦截器
 import axios from "axios";
 import { ElMessage } from 'element-plus'
-import { userInfo } from '@/stores/userInfo'
 //配置axios
 let request = axios.create({
   baseURL: '/api',//基础路径加上/api
@@ -11,7 +10,10 @@ let request = axios.create({
 request.interceptors.request.use((config) => {
   //headers属性请求头。
   //测试登录成功后获取的信息
-  config.headers.token = userInfo().$state.token
+  if (localStorage.getItem('TOKEN')) {
+    config.headers.token = localStorage.getItem('TOKEN')
+  }
+
 
   //返回配置对象
   return config

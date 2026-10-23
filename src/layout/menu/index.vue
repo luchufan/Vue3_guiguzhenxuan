@@ -1,68 +1,39 @@
 <template>
-  <el-scrollbar class="scrollabar">
-    <!-- element菜单组件 -->
-    <el-menu active-text-color="#ffd04b" background-color="$layout-menu-background-color" text-color="#fff">
-      <template v-for="item in props.menuList" :index="item.path">
-        <!-- 没有子路由时展示 -->
-        <el-menu-item v-if="!item.children && !item.meta.hidden" :index="item.path" @click="goRouter">
-          <template #title>
-            <el-icon>
-              <!-- 动态加载那个组件 -->
-              <component :is="item.meta.icon"></component>
-            </el-icon>
-            <span>{{ item.meta.title }}</span>
-          </template>
-        </el-menu-item>
-        <!-- 只有一个子路由时展示 -->
-        <el-menu-item v-if="item.children && item.children.length == 1 && !item.children[0].meta.hidden"
-          :index="item.children[0].path" @click="goRouter">
-          <template #title>
-            <el-icon>
-              <!-- 动态加载那个组件 -->
-              <component :is="item.meta.icon"></component>
-            </el-icon>
-            <span>{{ item.children[0].meta.title }}</span>
-          </template>
-        </el-menu-item>
-        <!-- 至少有两个子路由时展示 -->
-        <el-sub-menu v-if="item.children && item.children.length > 1 && !item.meta.hidden" :index="item.path">
-          <template #title>
-            <el-icon>
-              <!-- 动态加载那个组件 -->
-              <component :is="item.meta.icon"></component>
-            </el-icon>
-            <span>{{ item.meta.title }}</span>
-          </template>
-          <Menu :menuList="item.children"></Menu>
-        </el-sub-menu>
+  <!-- element菜单组件 -->
+  <template v-for="item in props.menuList" :index="item.path">
+    <!-- 没有子路由时展示 -->
+    <el-menu-item v-if="!item.children && !item.meta.hidden" :index="item.path" @click="goRouter">
+      <el-icon>
+        <!-- 动态加载那个组件 -->
+        <component :is="item.meta.icon"></component>
+      </el-icon>
+      <template #title>
+        <span>{{ item.meta.title }}</span>
       </template>
-
-
-      <!-- 折叠菜单 -->
-      <!-- <el-sub-menu index="3">
-        <template #title>
-          <el-icon>
-            <Lock />
-          </el-icon>
-          <span>权限管理</span>
-        </template>
-        <el-menu-item index="3-1">用户管理</el-menu-item>
-        <el-menu-item index="3-2">角色管理</el-menu-item>
-        <el-menu-item index="3-3">菜单管理</el-menu-item>
-      </el-sub-menu>
-      <el-sub-menu index="4">
-        <template #title>
-          <el-icon>
-            <ShoppingCartFull />
-          </el-icon>
-          <span>商品管理</span>
-        </template>
-        <el-menu-item index="4-1">item one</el-menu-item>
-        <el-menu-item index="4-2">item two</el-menu-item>
-        <el-menu-item index="4-3">item three</el-menu-item>
-      </el-sub-menu> -->
-    </el-menu>
-  </el-scrollbar>
+    </el-menu-item>
+    <!-- 只有一个子路由时展示 -->
+    <el-menu-item v-if="item.children && item.children.length == 1 && !item.children[0].meta.hidden"
+      :index="item.children[0].path" @click="goRouter">
+      <el-icon>
+        <!-- 动态加载那个组件 -->
+        <component :is="item.children[0].meta.icon"></component>
+      </el-icon>
+      <template #title>
+        <span>{{ item.children[0].meta.title }}</span>
+      </template>
+    </el-menu-item>
+    <!-- 至少有两个子路由时展示 -->
+    <el-sub-menu v-if="item.children && item.children.length > 1 && !item.meta.hidden" :index="item.path">
+      <template #title>
+        <el-icon>
+          <!-- 动态加载那个组件 -->
+          <component :is="item.meta.icon"></component>
+        </el-icon>
+        <span>{{ item.meta.title }}</span>
+      </template>
+      <Menu :menuList="item.children"></Menu>
+    </el-sub-menu>
+  </template>
 </template>
 
 <script setup lang="ts">
