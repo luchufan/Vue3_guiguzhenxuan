@@ -33,10 +33,10 @@ router.beforeEach(async (to, from) => {
           return true
         } catch (error: any) {//已经尝试过获取用户信息，但无法获取，可能token过期
           //清空用户数据，并跳转到登录页
-          // await userInfoStore.getUserLogout()
-          localStorage.removeItem('TOKEN')
-          userInfoStore.$state.token = ''
-          userInfoStore.$state.userInfo = {}
+          await userInfoStore.getUserLogout()
+          // localStorage.removeItem('TOKEN')
+          // userInfoStore.$state.token = ''
+          // userInfoStore.$state.userInfo = {}
           console.log(error.message);
           return '/login'
         }

@@ -10,6 +10,9 @@ import router from './router'
 import '@/styles/index.scss'
 //引入element样式
 import 'element-plus/dist/index.css'
+//引入element中文语言包
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import ElementPlus from 'element-plus'
 //引入组件SvgIcons
 import SvgIcons from './components/SvgIcons.vue'
 //引入全局样式
@@ -19,7 +22,7 @@ const app = createApp(App)
 //安装仓库
 app.use(pinia)
 app.use(router)
-
+app.use(ElementPlus, { locale: zhCn })
 //注册全局组件SvgIcons
 app.component('SvgIcons', SvgIcons)
 //注册element-plus图标全局组件

@@ -91,9 +91,6 @@ watch(() => homeStore.$state.reFlash, () => {
     div {
       white-space: nowrap;
     }
-
-
-
   }
 
   .scrollbar {
@@ -132,9 +129,9 @@ watch(() => homeStore.$state.reFlash, () => {
   height: calc(100vh - $layout-top-height);
   left: $layout-menu-width;
   top: $layout-top-height;
-  background-color: green;
   overflow: auto;
   padding: 20px;
+  border-top: 1px solid gray;
   transition: all .3s;
 
   // 内容区同时又.layout-topbar和.fold这两个类时，内容区宽度变为80px，在视口左边80px的位置

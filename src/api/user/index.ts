@@ -1,6 +1,6 @@
 //统一管理用户相关的接口
 import request from "@/utils/request";
-import type { LoginForm, LoginResponseData, UserResponseData } from "./type";
+import type { LoginDataType, LoginResponseDataType, UserInfoResponseDataType } from "./type";
 //统一管理接口
 enum API {
   //moke数据接口
@@ -18,8 +18,8 @@ enum API {
 
 //真实接口
 //登录接口
-export const reqLogin = (data: any) => request.post<any, any>(API.LOGIN_URL, data)
+export const reqLogin = (data: LoginDataType) => request.post<any, LoginResponseDataType>(API.LOGIN_URL, data)
 //获取用户信息接口方法
-export const reqUserInfo = () => request.get<any, any>(API.USERINFO_URL)
+export const reqUserInfo = () => request.get<any, UserInfoResponseDataType>(API.USERINFO_URL)
 //用户退出登录接口
 export const reqLogout = () => request.post<any, any>(API.LOGOUT_URL)

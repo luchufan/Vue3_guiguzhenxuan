@@ -48,9 +48,10 @@
 <script setup lang="ts">
 import { home } from '@/stores/home';
 import { userInfo } from '@/stores/userInfo';
-import { onBeforeMount } from 'vue';
+// import { onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
+import { ElNotification } from 'element-plus';
 const homeStore = home()
 const userInfoStore = userInfo()
 const $router = useRouter()
@@ -80,11 +81,32 @@ const fullScreen = () => {
 }
 //退出登录
 const logout = async () => {
-  await userInfoStore.getUserLogout()
-  // localStorage.removeItem('TOKEN')
-  // userInfoStore.$state.token = ''
-  // userInfoStore.$state.userInfo = {}
-  $router.push('/login')
+  try {
+    await userInfoStore.getUserLogout()
+    // localStorage.removeItem('TOKEN')
+    // userInfoStore.$state.token = ''
+    // userInfoStore.$state.userInfo = {}
+    ElNotification({
+      type: 'success',
+      message: '退出登录成功',
+      duration: 1500,
+      progress: true,
+    })
+    $router.push('/login')
+  } catch (error: any) {
+    console.log(error);
+
+    // ElNotification({
+    //   type: 'Error',
+    //   message: '退出登录失败',
+    //   title: error.message,
+    //   duration: 1500,
+    //   progress: true,
+    // })
+  }
+
+
+
 }
 //使用userInfoStore中的getUserInfo获取用户信息
 // onBeforeMount(() => {
