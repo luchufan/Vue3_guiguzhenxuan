@@ -24,9 +24,7 @@
     </el-card>
 
     <el-card style="margin-top: 20px;">
-      <!-- 测试阶段将:disabled="canAddBtn" 恒为false -->
       <el-button type="primary" icon="Plus" @click="addAttr" :disabled="canAddBtn">添加平台属性</el-button>
-      <!-- <el-button type="primary" icon="Plus" @click="addAttr" :disabled="false">添加平台属性</el-button> -->
       <el-table :data="tableData" border style="width: 100%;margin-top: 20px;">
         <el-table-column type="index" label="序号" width="60" align="center" />
         <el-table-column label="属性名称" width="160">
@@ -211,7 +209,7 @@ const getAttrInfoList = async (id1: number, id2: number, id3: number) => {
     //让添加平台属性按钮可点，false:可点击，true:不可点击
     canAddBtn.value = false
     tableData.value = result.data
-    // console.log(result.data);
+    console.log(result.data);
 
     //
     addAttrInfo.categoryId = id3
@@ -436,6 +434,5 @@ const cancelUpdateAttr = () => {
       }
     }
   }
-
 }
 </style>
