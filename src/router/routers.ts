@@ -73,13 +73,13 @@ export default [
     redirect: '/acl/permission',
     children: [
       {
-        path: '/acl/permission',
-        name: 'permission',
-        component: () => import('@/views/acl/permission/index.vue'),
+        path: '/acl/user',
+        name: 'user',
+        component: () => import('@/views/acl/user/index.vue'),
         meta: {
-          title: '菜单管理',
+          title: '用户管理',
           hidden: false,//是否在主页菜单栏中展示，true为隐藏，false为展示
-          icon: 'Files'
+          icon: 'User'
         }
       },
       {
@@ -93,15 +93,17 @@ export default [
         }
       },
       {
-        path: '/acl/user',
-        name: 'user',
-        component: () => import('@/views/acl/user/index.vue'),
+        path: '/acl/permission',
+        name: 'permission',
+        component: () => import('@/views/acl/permission/index.vue'),
         meta: {
-          title: '用户管理',
+          title: '菜单管理',
           hidden: false,//是否在主页菜单栏中展示，true为隐藏，false为展示
-          icon: 'User'
+          icon: 'Files'
         }
       },
+
+
     ]
   },
   {

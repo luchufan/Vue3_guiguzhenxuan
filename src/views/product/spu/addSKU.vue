@@ -92,20 +92,34 @@ const baseSaleAttrList = ref<any>()
 const imageList = ref()
 //暴露给父组件的方法
 const addSkuInfo = async (value1: number, value2: number, value3: number, spuId: number, tmId: number) => {
+  //清空saveInfo
+  skuInfo.category3Id = undefined
+  skuInfo.price = ''
+  skuInfo.skuAttrValueList = []
+  skuInfo.skuDefaultImg = ''
+  skuInfo.skuDesc = ''
+  skuInfo.skuName = ''
+  skuInfo.skuSaleAttrValueList = []
+  skuInfo.spuID = undefined
+  skuInfo.tmId = undefined
+  skuInfo.weight = ''
+  //清空select
+  skuAttrValueArr.value = []
+  skuSaleAttrValueArr.value = []
   //获取通用平台属性
   let result = await reqGetAttrInfoList(value1, value2, value3)
   attrInfoList.value = result.data
-  console.log(result.data);
+  // console.log(result.data);
 
   //根据id获取销售属性
   let result1 = await reqGetSpuSaleAttrList(spuId)
   baseSaleAttrList.value = result1.data
-  console.log(baseSaleAttrList.value);
+  // console.log(baseSaleAttrList.value);
 
   //根据id获取图片
   let result3 = await reqGetSpuImagesList(spuId)
   imageList.value = result3.data
-  console.log(result3);
+  // console.log(result3);
 
   //将catergory3Id传给skuInfo
   skuInfo.category3Id = value3
@@ -157,7 +171,7 @@ const saveSkuInfo = async () => {
       saleAttrValueId: item
     }
   })
-  console.log(skuInfo);
+  // console.log(skuInfo);
 
   let result = await reqGetSaveSkuInfo(skuInfo)
   if (result.code == 200) {

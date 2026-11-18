@@ -1,22 +1,22 @@
 <template>
   <div class="spu-contanier">
-    <el-card body-style="display: flex;justify-content: space-around;">
-      <el-form style="width: 100%;">
+    <el-card body-style="padding: 20px;">
+      <el-form label-width="auto">
         <el-form-item label="一级分类">
           <el-select v-model="value1" placeholder="请选择" filterable size="default" @change="changeSelect1"
-            style="width: 100%;" :disabled="scream == 1">
+            style="width: 100%;" :disabled="scream == 1 || scream == 2">
             <el-option v-for="item in options1" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
         <el-form-item label="二级分类">
           <el-select v-model="value2" placeholder="请选择" filterable size="default" @change="changeSelect2"
-            style="width: 100%;" :disabled="scream == 1">
+            style="width: 100%;" :disabled="scream == 1 || scream == 2">
             <el-option v-for="item in options2" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
         <el-form-item label="三级分类">
           <el-select v-model="value3" placeholder="请选择" filterable size="default" @change="changeSelect3"
-            style="width: 100%;" :disabled="scream == 1">
+            style="width: 100%;" :disabled="scream == 1 || scream == 2">
             <el-option v-for="item in options3" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
@@ -40,7 +40,7 @@
                 <el-button type="primary" icon="Edit" @click="updateSPU(row)"></el-button>
               </el-tooltip>
               <el-tooltip class="box-item" effect="dark" content="查看" placement="top">
-                <el-button icon="List"></el-button>
+                <el-button icon="List" @click="showSku(row)"></el-button>
               </el-tooltip>
               <el-tooltip class="box-item" effect="dark" content="删除" placement="top">
                 <el-button type="danger" icon="Delete" @click="deleteSpu(row)"></el-button>
@@ -61,6 +61,18 @@
         <addSKU @changeScream="changeScream" ref="addSKUref"></addSKU>
       </div>
     </el-card>
+    <el-dialog v-model="isShowSku" title="SKU列表" width="800px">
+      <el-table :data="skuInfo" style="width: 100%" border>
+        <el-table-column label="sku名称" prop="skuName" width=""></el-table-column>
+        <el-table-column label="sku价格" prop="price" width=""></el-table-column>
+        <el-table-column label="sku重量" prop="weight" width=""></el-table-column>
+        <el-table-column label="sku图片" width="">
+          <template #default="{ row }">
+            <img :src="row.skuDefaultImg" style="height: 50px;">
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -73,6 +85,7 @@ import type { GetCategory1Data, GetCategory2Data, GetCategory3Data } from '@/api
 import type { SpuInfoType, SpuInfoRecordsType } from '@/api/product/spu/type'
 import addSKU from './addSKU.vue'
 import addSPU from './addSPU.vue'
+import { reqGetShowSkuInfo } from '@/api/product/sku/index.ts'
 
 //选择器1选项的对应的值
 let value1 = ref()
@@ -222,7 +235,6 @@ const updateSPU = (row: SpuInfoRecordsType) => {
 
 //点击添加Spu按钮触发
 const addNewSpu = () => {
-
   // 子组件主动暴露的里面的getAllSPUInfo，父组件获取子组件实例后可直接调用此方法，还可以实现组件通信
   addSPUref.value.addNewSpuInfo(value3.value)
   scream.value = 1
@@ -256,12 +268,33 @@ const deleteSpu = async (row: any) => {
   }
 }
 //点击新增一个sku
+
 const addSkuInfo = (row: any) => {
   scream.value = 2
-  console.log(row);
+  // console.log(row);
   //这个是子组件里的addSkuInfo方法不是这个组件的addSkuInfo方法
   addSKUref.value.addSkuInfo(value1.value, value2.value, value3.value, row.id, row.tmId)
+}
 
+//是否展示sku,开始默认不展示
+const isShowSku = ref<boolean>(false)
+//sku信息
+const skuInfo = ref<any>([])
+//点击查看sku信息时触发
+const showSku = async (row: any) => {
+  //展示sku信息
+  isShowSku.value = true
+  // console.log(row);
+  let result = await reqGetShowSkuInfo(row.id)
+  if (result.code == 200) {
+    skuInfo.value = result.data
+  } else {
+    ElMessage({
+      type: 'error',
+      message: '获取sku信息失败'
+    })
+  }
+  // console.log(result);
 
 }
 </script>
