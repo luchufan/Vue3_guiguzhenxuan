@@ -42,11 +42,8 @@ onMounted(() => {
         label: {
           show: true,
           position: 'inside',
-          textStyle: {
-            color: 'white',
-            fontSize: 10
-          }
-          // formatter: '{b}'
+          color: 'white',
+          fontSize: 10
         },
         // emphasis: {//鼠标放在图标上文字放大
         //   label: {

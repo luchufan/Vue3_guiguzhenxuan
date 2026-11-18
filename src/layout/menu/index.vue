@@ -40,6 +40,8 @@
 import { useRouter } from 'vue-router';
 const $router = useRouter()
 const goRouter = (vc: any) => {
+  console.log(vc);
+
   $router.push(vc.index)
 }
 

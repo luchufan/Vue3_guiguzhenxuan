@@ -18,7 +18,7 @@
   import time from '@/utils/time';
   import SvgIcons from '@/components/SvgIcons.vue';
   const userInfoStore = userInfo()
-  console.log(userInfoStore.userInfo);
+  // console.log(userInfoStore.userInfo);
 
 </script>
 
